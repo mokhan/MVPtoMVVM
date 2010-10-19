@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Input;
 using MVPtoMVVM.domain;
 using MVPtoMVVM.repositories;
+using MVPtoMVVM.utility;
 
 namespace MVPtoMVVM.mvvm.viewmodels
 {
@@ -30,25 +31,27 @@ namespace MVPtoMVVM.mvvm.viewmodels
     public class RefreshChangesCommand : UICommand<MainWindowViewModel>
     {
         ITodoItemRepository todoItemRepository;
+        UICommandBuilder command_builder;
 
-        public RefreshChangesCommand(ITodoItemRepository todo_item_repository)
+        public RefreshChangesCommand(ITodoItemRepository todo_item_repository, UICommandBuilder command_builder)
         {
             todoItemRepository = todo_item_repository;
+            this.command_builder = command_builder;
         }
 
         protected override void run(MainWindowViewModel presenter)
         {
             presenter.TodoItems.Clear();
-            foreach (var item in todoItemRepository.GetAll().Select(map_from))
+            todoItemRepository.GetAll().Select(map_from).each(x =>
             {
-                item.Parent = presenter;
-                presenter.TodoItems.Add(item);
-            }
+                x.Parent = presenter;
+                presenter.TodoItems.Add(x);
+            });
         }
 
         TodoItemViewModel map_from(TodoItem item)
         {
-            return new TodoItemViewModel(todoItemRepository)
+            return new TodoItemViewModel(command_builder)
                 {
                     Id = item.Id,
                     Description = item.Description,
@@ -59,18 +62,18 @@ namespace MVPtoMVVM.mvvm.viewmodels
 
     public class AddNewItemCommand : UICommand<MainWindowViewModel>
     {
-        ITodoItemRepository todoItemRepository;
+        UICommandBuilder command_builder;
 
-        public AddNewItemCommand(ITodoItemRepository todo_item_repository)
+        public AddNewItemCommand(UICommandBuilder command_builder)
         {
-            todoItemRepository = todo_item_repository;
+            this.command_builder = command_builder;
         }
 
         protected override void run(MainWindowViewModel presenter)
         {
             presenter
                 .TodoItems
-                .Add(new TodoItemViewModel(todoItemRepository)
+                .Add(new TodoItemViewModel(command_builder)
                     {
                         Parent = presenter,
                         DueDate = DateTime.Today,

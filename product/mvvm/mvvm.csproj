@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="viewmodels\Notification.cs" />
     <Compile Include="viewmodels\Observable.cs" />
     <Compile Include="viewmodels\ObservableCommand.cs" />
     <Compile Include="viewmodels\IValidation.cs" />

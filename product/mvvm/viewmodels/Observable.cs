@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using MVPtoMVVM.utility;
 
 namespace MVPtoMVVM.mvvm.viewmodels
 {
@@ -8,19 +9,7 @@ namespace MVPtoMVVM.mvvm.viewmodels
     {
         public void update(params Expression<Func<T, object>>[] properties)
         {
-            foreach (var property in properties)
-            {
-                PropertyChanged(null, new PropertyChangedEventArgs(GetPropertyNameFrom(property)));
-            }
-        }
-
-        string GetPropertyNameFrom(Expression<Func<T, object>> property)
-        {
-            if (property.Body.NodeType == ExpressionType.Convert)
-                return (((UnaryExpression) property.Body).Operand as MemberExpression).Member.Name;
-            if (property.Body.NodeType == ExpressionType.MemberAccess)
-                return (property.Body as MemberExpression).Member.Name;
-            return "";
+            properties.each(x => { PropertyChanged(null, new PropertyChangedEventArgs(x.pick_property().Name)); });
         }
 
         public event PropertyChangedEventHandler PropertyChanged = (o, e) => { };

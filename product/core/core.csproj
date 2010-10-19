@@ -49,6 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="repositories\ITodoItemRepository.cs" />
     <Compile Include="repositories\TodoItemRepository.cs" />
+    <Compile Include="utility\ExpressionExtensions.cs" />
     <Compile Include="utility\Iterating.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
