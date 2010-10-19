@@ -6,7 +6,7 @@ namespace MVPtoMVVM.mvvm.viewmodels
 {
     public class Synchronizer<T> where T : INotifyPropertyChanged
     {
-        private readonly PropertyChangedEventHandler eventHandler;
+        readonly PropertyChangedEventHandler eventHandler;
 
         public Synchronizer(PropertyChangedEventHandler eventHandler)
         {
@@ -22,7 +22,7 @@ namespace MVPtoMVVM.mvvm.viewmodels
         {
             if (property.Body.NodeType == ExpressionType.Convert)
             {
-                var body = (UnaryExpression)property.Body;
+                var body = (UnaryExpression) property.Body;
                 return (body.Operand as MemberExpression).Member.Name;
             }
             if (property.Body.NodeType == ExpressionType.MemberAccess)

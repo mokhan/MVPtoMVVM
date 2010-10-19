@@ -1,18 +1,15 @@
-﻿using System.Windows;
-using MVPtoMVVM.mvvm.viewmodels;
+﻿using MVPtoMVVM.mvvm.viewmodels;
 using StructureMap;
 
 namespace MVPtoMVVM.mvvm
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
             ViewModel = ObjectFactory.GetInstance<MainWindowViewModel>();
+            ViewModel.present();
         }
 
         public MainWindowViewModel ViewModel
