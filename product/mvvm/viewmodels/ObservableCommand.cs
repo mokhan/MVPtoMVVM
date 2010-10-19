@@ -2,7 +2,7 @@
 
 namespace MVPtoMVVM.mvvm.viewmodels
 {
-    public interface IObservableCommand : ICommand
+    public interface ObservableCommand : ICommand
     {
         void Changed();
     }

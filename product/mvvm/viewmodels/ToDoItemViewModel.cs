@@ -71,8 +71,8 @@ namespace MVPtoMVVM.mvvm.viewmodels
             }
         }
 
-        public IObservableCommand SaveCommand { get; set; }
-        public IObservableCommand DeleteCommand { get; set; }
+        public ObservableCommand SaveCommand { get; set; }
+        public ObservableCommand DeleteCommand { get; set; }
         public MainWindowViewModel Parent { get; set; }
 
         public string this[string columnName]

@@ -1,4 +1,5 @@
 using MVPtoMVVM.domain;
+using MVPtoMVVM.mvvm.viewmodels;
 using StructureMap;
 
 namespace MVPtoMVVM.mvvm
@@ -7,14 +8,16 @@ namespace MVPtoMVVM.mvvm
     {
         public void Execute()
         {
-            ObjectFactory.Initialize(x => 
+            ObjectFactory.Initialize(x =>
+            {
                 x.Scan(scanner =>
                 {
-                    scanner.AssemblyContainingType(typeof(TodoItem));
+                    scanner.AssemblyContainingType(typeof (TodoItem));
                     scanner.WithDefaultConventions();
-                })
-            );
-
+                    scanner.RegisterConcreteTypesAgainstTheFirstInterface();
+                });
+                x.AddType(typeof(UICommandBuilder), typeof(WPFCommandBuilder));
+            });
         }
     }
 }
